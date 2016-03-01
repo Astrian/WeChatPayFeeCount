@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string></string>
+	<key>category</key>
+	<string>Tools</string>
+	<key>connections</key>
+	<dict>
+		<key>F7B26553-F7FD-4A0F-B955-6B1765EC7C3B</key>
+		<array/>
+	</dict>
+	<key>createdby</key>
+	<string>Astrian Zheng</string>
+	<key>description</key>
+	<string>根据微信零钱总额，计算可提现数额。</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>微信提现收费计算</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>100</integer>
+				<key>keyword</key>
+				<string>wcp</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>正在计算…</string>
+				<key>script</key>
+				<string>header("content-type:text/html; charset=utf-8");
+require('workflows.php');
+
+$wf = new Workflows();
+
+$query = '{query}';
+$avaliable = $query/1.001;
+$avaliable = (floor (($avaliable*10)/1))/10;
+
+$price = $query - $avaliable;
+$price = round($price,2);
+
+$avaliable = $query - $price;
+
+$wf-&gt;result(1, '','你只能提现人民币 '.$avaliable.' 元', '手续费 '.$price.' 元','icon.jpeg','yes');
+echo $wf-&gt;toxml();</string>
+				<key>subtext</key>
+				<string>输入总额，计算手续费以及最大提款额</string>
+				<key>title</key>
+				<string>你的微信有零钱 {query} 元</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>F7B26553-F7FD-4A0F-B955-6B1765EC7C3B</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>F7B26553-F7FD-4A0F-B955-6B1765EC7C3B</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>https://github.com/Astrian/WeChatPayFeeCount</string>
+</dict>
+</plist>
